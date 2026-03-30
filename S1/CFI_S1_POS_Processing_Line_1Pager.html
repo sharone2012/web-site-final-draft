@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CFI S1 — POS Processing Line (1-Pager)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+/* ══ CFI LAYOUT CONFIG ══ */
+:root {
+  --card-img-w: 161px;
+  --card-data-max: 520px;
+  --page-w: fit-content;
+  --left-w: 210px;
+  --zoom-level: 0.75;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   S0 RESIDUE TEMPLATE ENGINE
+   ══════════════════════════════════════════════════════════════
+
+   THIS IS A TEMPLATE. The residue name is selected in Stage 0.
+
+   CURRENT RESIDUE: POS
+
+   HOW IT WORKS:
+   - Every residue name in this document is wrapped in:
+       <span class="s0r">RESIDUE_NAME</span>
+   - Machine tag prefixes (SL-POS, CV-POS, etc.) use:
+       <span class="s0r-tag">POS</span>
+   - To switch residue: change --s0-residue below and run
+     a find/replace on all .s0r and .s0r-tag content.
+
+   KNOWN RESIDUES (S0 selection pool):
+     OPDC  — Oil Palm Decanter Cake (paste, 70-75% MC)
+     EFB   — Empty Fruit Bunch (fibre, 65-70% MC)
+     POS   — Palm Oil Sludge (liquid/semi, 80-85% MC)
+     [ANY NEW RESIDUE added by user in S0 gets the same treatment]
+
+   RULE FOR CLAUDE / FUTURE SESSIONS:
+     When building or editing ANY S1 Processing Line 1-Pager:
+     1. The residue name is NEVER hardcoded — always use class="s0r"
+     2. Machine tag codes contain the residue prefix — use class="s0r-tag"
+     3. If a user adds a new residue in S0, generate a new 1-Pager
+        from this template by replacing all .s0r / .s0r-tag content
+     4. Colours, machine counts, and specs change per residue
+        but the LAYOUT and STRUCTURE stay identical
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --s0-residue: "POS";
+  --s0-residue-full: "Palm Oil Sludge";
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#e0e0e0;font-family:'DM Sans',sans-serif;min-height:100vh;padding:20px}
+
+.s0r{font-style:normal;font-weight:inherit;color:inherit}
+.s0r-tag{font-style:normal;font-weight:inherit;color:inherit}
+
+/* ══ PAGE ══ */
+.page{
+  background:#fff;border:1px solid #111;
+  width:fit-content;margin:0 auto;
+  display:flex;flex-direction:column;
+}
+
+/* ══ MAIN ══ */
+.main{display:flex;flex:1}
+
+/* ══ LEFT PANEL ══ */
+.lp{
+  width:var(--left-w,210px);flex-shrink:0;
+  border-right:1px solid #ccc;
+  padding:11px 0px 11px 13px;
+  display:flex;flex-direction:column;gap:11px;
+}
+.lp-t{font-size:12px;font-weight:700;color:#111;margin-bottom:6px;padding-bottom:3px;border-bottom:1px solid #ddd;font-family:'DM Sans',sans-serif}
+.lp-rf{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.sw{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.lp-r{font-size:10px;color:#333;line-height:1.55;font-family:'DM Sans',sans-serif}
+.ml-item{padding:7px 0;border-bottom:1px solid #f0f0f0}
+.ml-item:last-child{border-bottom:none}
+.ml-num{display:inline-block;background:#111;color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:2px;margin-right:4px;vertical-align:middle;font-family:'DM Sans',sans-serif}
+.ml-tag{font-size:12px;font-weight:700;color:#111;display:block;margin-bottom:1px;font-family:'DM Sans',sans-serif}
+.ml-name{font-size:12px;color:#444;display:block;line-height:1.4;font-family:'DM Sans',sans-serif}
+.ml-spec{font-size:10px;color:#777;display:block;line-height:1.4;font-family:'DM Sans',sans-serif}
+.ml-conn{font-size:10px;color:#111;display:block;line-height:1.5;font-style:italic;font-weight:400;font-family:'DM Sans',sans-serif}
+.lt-row{display:flex;justify-content:space-between;padding:1.5px 0;border-bottom:1px solid #f5f5f5}
+.lt-row:last-child{border-bottom:none}
+.lt-l{font-size:10px;color:#888;font-family:'DM Sans',sans-serif}
+.lt-v{font-size:10px;font-weight:700;color:#111;font-family:'DM Sans',sans-serif}
+
+/* ══ CONTENT ══ */
+.content{flex:0 1 auto;padding:14px 12px 16px 40px;min-width:0;display:flex;flex-direction:column;justify-content:flex-start}
+.sh-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#111;margin-bottom:2px}
+.sh-sub{font-size:12px;color:#555;margin-bottom:7px;font-family:'DM Sans',sans-serif}
+.warn{background:#fafafa;border:1px solid #bbb;border-radius:3px;padding:5px 12px;font-size:11px;color:#555;line-height:1.45;margin-bottom:10px;font-family:'DM Sans',sans-serif}
+
+/* ══ DIMENSION LINES ══ */
+.dim-wrap{margin-bottom:8px;margin-right:0}
+.dim-title{font-size:12px;font-weight:700;color:#444444;font-family:'DM Sans',sans-serif;text-align:center;margin-bottom:4px}
+.dim-row{display:flex;align-items:center;position:relative}
+.dtick{width:1px;height:14px;background:#999;flex-shrink:0}
+.dline{flex:1;height:1px;background:#999}
+.dnum{position:absolute;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;color:#444444;background:#fff;padding:0 7px;font-family:'DM Sans',sans-serif;white-space:nowrap}
+
+/* ══ FIELD + HEIGHT ROW ══ */
+.fz-ho-row{display:flex;align-items:stretch}
+.fz-outer{display:flex;align-items:stretch;flex:0 0 auto}
+.fz{
+  border:none;border-radius:0;
+  padding:12px 12px 12px 0;flex:1;position:relative;
+  display:flex;flex-direction:column;gap:7px;
+}
+.fz-badge{
+  position:relative;top:0;left:0;
+  background:transparent;padding:0;
+  font-size:11px;font-weight:700;color:#111;
+  border:none;border-radius:0;
+  margin-bottom:4px;
+}
+
+/* ══ MACHINE CARD ══ */
+.mcard{display:flex;gap:8px;align-items:stretch}
+
+/* IMAGE CELL */
+.mic{width:var(--card-img-w,140px);flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:0;align-self:stretch;background:#f5f5f5;border:1.5px solid #999;border-radius:3px;overflow:hidden}
+.mil{
+  font-size:10px;font-weight:700;color:#111;
+  text-align:center;line-height:1.2;
+  padding:4px 4px 2px;
+  width:100%;white-space:normal;overflow:visible;word-wrap:break-word;
+  font-family:'DM Sans',sans-serif;
+  border-bottom:1px solid #ccc;
+  background:#eee;
+}
+.mib{
+  width:100%;flex:1;min-height:0;
+  border:none;border-radius:0;
+  background:transparent;
+  display:flex;align-items:center;justify-content:center;padding:4px;
+}
+.mib-noise{border:2px dashed rgba(0,0,0,.35);background:rgba(0,0,0,.02)}
+.mib-classA{border:2px solid rgba(0,0,0,.4)}
+.mib-dwell{border:2px solid rgba(0,0,0,.35)}
+.mis{font-size:10px;color:#555;text-align:center;padding:2px 4px 4px;width:100%;font-family:'DM Sans',sans-serif;border-top:1px solid #ccc;background:#eee}
+
+/* DATA CELL */
+.md{flex:1;border:1.5px solid #111;border-radius:3px;display:flex;flex-direction:column;min-width:0;max-width:var(--card-data-max,520px)}
+.mdh{display:flex;align-items:center;gap:5px;padding:4px 8px 4px 8px;border-bottom:1px solid #e0e0e0}
+.mn{background:#111;color:#fff;font-size:12px;font-weight:700;padding:2px 7px;border-radius:2px;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.mt{font-size:12px;font-weight:700;color:#111;font-family:'DM Sans',sans-serif}
+.mnr{
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:#000;
+  padding:3px 8px;border-bottom:1px solid #eee;
+  white-space:nowrap;overflow:visible;display:block;
+}
+
+/* FIELD TABLE */
+.ft{width:100%;border-collapse:collapse}
+.ft tr{border-bottom:1px solid #f2f2f2}
+.ft tr:last-child{border-bottom:none}
+.ft td{padding:3px 10px;vertical-align:middle;line-height:1.45;font-size:11px;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.fl{color:#666;white-space:nowrap;width:1%;padding-right:6px;padding-left:8px;font-size:11px}
+.fv{color:#111;font-weight:700;font-size:11px;white-space:nowrap}
+.fc{color:#777;font-weight:400;font-size:10px}
+.fl-a{color:#666;white-space:nowrap;width:1%;padding-right:5px;padding-left:8px;font-size:11px}
+.fv-a{color:#111;font-weight:700;font-size:11px;white-space:nowrap}
+.fdiv{border-left:1px solid #e0e0e0;padding:0;width:1px}
+.fl-b{color:#666;white-space:nowrap;width:1%;padding-right:5px;padding-left:6px;font-size:11px}
+.fv-b{color:#111;font-weight:700;font-size:11px;white-space:nowrap}
+/* Guardrail rows */
+.fg-grey{background:#f8f8f8}
+.fg-grey td{padding:3px 8px;font-style:italic;color:#555;font-size:11px}
+.fg-red{background:rgba(0,0,0,.04)}
+.fg-red td{padding:3px 8px;font-style:italic;color:#444444;font-size:11px}
+.fg-blue{background:rgba(0,0,0,.04)}
+.fg-blue td{padding:3px 8px;font-style:italic;color:#444444;font-size:11px;font-weight:700}
+.fg-amber{background:rgba(0,0,0,.04)}
+.fg-amber td{padding:3px 8px;font-style:italic;color:#555555;font-size:11px;font-weight:700}
+
+/* CONNECTOR inside card */
+.mconn{
+  padding:3px 8px 4px;
+  border-top:1px dashed #e0e0e0;
+  font-size:11px;color:#aaa;white-space:nowrap;
+  display:flex;align-items:center;gap:5px;
+  margin-top:auto;
+}
+.mconn-arr{color:#bbb;font-size:11px;flex-shrink:0}
+
+/* S2 box */
+.s2box{
+  border-radius:3px;padding:7px 14px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;
+  text-align:center;flex-shrink:0;
+}
+.s2-pos{background:#222;color:#fff;border:1.5px solid #888}
+
+/* HEIGHT DIM */
+.ho{width:32px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-left:8px;padding-top:72px;align-self:stretch}
+.h-title{font-size:12px;font-weight:700;color:#444;font-family:'DM Sans',sans-serif;writing-mode:vertical-rl;position:absolute;left:8px;top:50%;transform:translateY(-50%);white-space:nowrap}
+.h-tick{height:1px;width:14px;background:#999}
+.h-line{flex:1;width:1px;background:#999;position:relative;display:flex;align-items:center;justify-content:center}
+.h-num{font-size:12px;font-weight:700;color:#444;font-family:'DM Sans',sans-serif;writing-mode:vertical-rl;background:#fff;padding:4px 0;position:absolute;white-space:nowrap}
+
+/* NOISE BAND */
+.noise-band{
+  background:rgba(0,0,0,.04);
+  border:1px dashed rgba(0,0,0,.3);
+  border-radius:3px;padding:3px 10px;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
+  color:#444444;text-align:center;
+}
+
+/* PANELS */
+.panel{display:flex;flex-direction:column}
+
+/* ══ 1-PAGER OVERRIDES ══ */
+html, body {
+    background: #E0E0E0 !important;
+    padding: 30px !important;
+    overflow: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+}
+
+/* Frame */
+.onepager-frame {
+    background: #FFFFFF;
+    border: 2px solid #40D7C5;
+    padding: 24px;
+    width: fit-content;
+    max-width: 95vw;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,.15);
+}
+
+.onepager-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: .02em;
+    text-transform: none;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #111;
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    align-items: center;
+}
+.onepager-title .rev {
+    font-size: 10px;
+    color: #444;
+    font-weight: 500;
+}
+
+.onepager-scaled {
+    zoom: var(--zoom-level,0.75);
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: top left;
+}
+</style>
+</head>
+<body>
+
+<div class="onepager-frame">
+    <div class="onepager-title">
+        <span>S1 - CFI - <span class="s0r">POS</span> Mechanical Downsizing</span>
+        <span class="rev">Residue selected in S0 &nbsp;·&nbsp; Plantation: [Name] &nbsp;·&nbsp; Mill: [Name] &nbsp;·&nbsp; [City], [Region]</span>
+    </div>
+    <div class="onepager-scaled">
+        <div class="page">
+            <div id="panel-pos" class="panel">
+  <!-- topbar removed per design rule -->
+  <div class="main">
+    <div class="lp">
+      <div>
+        <div class="lp-t">Legend</div>
+        <div class="lp-rf"><div class="sw" style="background:#f8f8f8;border:1.5px solid #bbb"></div><span class="lp-r">Processing equipment</span></div>
+        <div class="lp-rf"><div class="sw" style="background:#fff;border:2px solid rgba(204,34,34,.55)"></div><span class="lp-r">CLASS A gate</span></div>
+        <div class="lp-rf"><div class="sw" style="background:#f8f8f8;border:2px dashed rgba(204,34,34,.5)"></div><span class="lp-r">Noise zone</span></div>
+        <div class="lp-rf"><div class="sw" style="background:#fff;border:1.5px solid rgba(245,166,35,.65)"></div><span class="lp-r">24hr dwell gate</span></div>
+        <div class="lp-rf"><span style="font-size:10px;color:#bbb;flex-shrink:0">▼</span><span class="lp-r"><span class="s0r">POS</span> flow</span></div>
+      </div>
+      <div style="flex:1">
+        <div class="lp-t"><span class="s0r">POS</span> Machinery</div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">1</span>SL-<span class="s0r-tag">POS</span>-101</span><span class="ml-name">Sludge Receiving Tank</span><span class="ml-spec">±0.0m · 3kW · 10 m³</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ PP-<span class="s0r-tag">POS</span>-101 · progressive cavity pump</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">2</span>PP-<span class="s0r-tag">POS</span>-101</span><span class="ml-name">Progressive Cavity Pump</span><span class="ml-spec">±0.0m · 7.5kW · 6 m³/h</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ pipe 80mm · +3.0m rise</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">3</span>PVS-01</span><span class="ml-name">Vibrating Screen (coarse)</span><span class="ml-spec">+3.0m · 5.5kW · 6 t/h</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ gravity chute → DAF</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">4</span>PDF-01</span><span class="ml-name">Dissolved Air Flotation</span><span class="ml-spec">+1.5m · 4kW · oil skim</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ PP-02 pump → decanter</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">5</span>PDC-01</span><span class="ml-name">Decanter Centrifuge ★★ CLASS A</span><span class="ml-spec">+2.0m · 45kW · ≥35% MC floor</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ CV-<span class="s0r-tag">POS</span>-201 · screw conveyor</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">6</span>CV-<span class="s0r-tag">POS</span>-201</span><span class="ml-name">Screw Conveyor</span><span class="ml-spec">+2.0m · 4kW · 4 t/h</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ PB-06 belt · 8m level</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">7</span>PMX-01</span><span class="ml-name">Paddle Mixer</span><span class="ml-spec">+3.0m · 11kW · lime dosing</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ PB-07 belt · 8m level</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">8</span>PDS-01</span><span class="ml-name">Belt Dryer (low-temp)</span><span class="ml-spec">+2.0m · 18.5kW · waste heat</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ PB-08 belt · 6m level</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">9</span>PDC-02</span><span class="ml-name">Baghouse (external)</span><span class="ml-spec">Ground · 11kW · 2,500 m³/hr</span></div>
+        <div class="ml-item"><span class="ml-tag"><span class="ml-num">10</span>BIN-<span class="s0r-tag">POS</span>-301</span><span class="ml-name">Buffer Bin — 24hr dwell</span><span class="ml-spec">+2.5m · 12m³ · 30–40% MC · pH gate</span></div>
+        <div class="ml-item"><span class="ml-conn">▾ BC-11 · 10m → gallery → S2</span></div>
+        <div style="margin-top:8px;padding-top:7px;border-top:1px solid #eee">
+          <div class="lp-t" style="margin-bottom:4px">Line totals</div>
+          <div class="lt-row"><span class="lt-l">Installed kW</span><span class="lt-v">~113 kW</span></div>
+          <div class="lt-row"><span class="lt-l">Throughput</span><span class="lt-v">6 m³/h liquid in</span></div>
+          <div class="lt-row"><span class="lt-l">Building</span><span class="lt-v">12m × 30m × 8m</span></div>
+          <div class="lt-row"><span class="lt-l">Floor slab</span><span class="lt-v">200mm RC C30 + bund</span></div>
+          <div class="lt-row"><span class="lt-l">Power</span><span class="lt-v">3-phase 415V</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="sh-title"><span class="s0r">POS</span> Mechanical Downsizing Line</div>
+      <div class="sh-sub">12m wide · machines ①–⑩ · liquid/semi handling · 6 m³/h · from <span class="s0r">POS</span> sludge pit receiving · 900 t FW/month · liquid/semi form</div>
+      <div class="warn"><span class="s0r">POS</span> input: 80–85% MC · high FOG · C:N 14 · liquid/semi form — requires dewatering before solids handling · CLASS A centrifuge discharge floor 35% MC locked</div>
+      <div class="fz-ho-row"><div class="fz-outer">
+        <div class="fz">
+          <div class="dim-wrap">
+            <div class="dim-title">Width</div>
+            <div class="dim-row"><div class="dtick"></div><div class="dline"></div><div class="dtick"></div><div class="dnum">12.0 m</div></div>
+          </div>
+          <div class="fz-badge"><span class="s0r">POS</span> · 12m × 30m × 8m</div>
+
+          <!-- 1 SL-POS-101 -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Sludge Receiving Tank</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="14" y="12" width="58" height="46" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="3"/>
+                  <rect x="18" y="28" width="50" height="26" fill="#d0d0d0" opacity=".5"/>
+                  <line x1="18" y1="28" x2="68" y2="28" stroke="#666666" stroke-width="1" stroke-dasharray="4,2"/>
+                  <text x="43" y="44" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">SLUDGE</text>
+                  <line x1="72" y1="30" x2="80" y2="30" stroke="#666666" stroke-width="1.5"/>
+                  <circle cx="80" cy="30" r="3" fill="none" stroke="#666666" stroke-width="1"/>
+                  <rect x="14" y="58" width="58" height="6" fill="#888" rx="1"/>
+                  <text x="43" y="78" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">10 m³ · bunded</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">level sensor + agitator</text>
+                </svg>
+              </div>
+              <div class="mis">Bunded concrete pit</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">1</span><span class="mt">SL-<span class="s0r-tag">POS</span>-101</span></div>
+              <div class="mnr">Sludge Receiving Tank</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">Ground ±0.0m</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">3 kW (agitator)</td></tr>
+                <tr><td class="fl-a">Volume</td><td class="fv-a">10 m³</td><td class="fdiv"></td><td class="fl-b">Bund</td><td class="fv-b">110% capacity</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a"><span class="s0r">POS</span> raw sludge</td><td class="fdiv"></td><td class="fl-b">Moisture in</td><td class="fv-b">80–85%</td></tr>
+                <tr><td class="fl-a">Material</td><td class="fv-a">Concrete + epoxy coat</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Note</td><td class="fv" colspan="4">Level sensor + slow-speed agitator — prevents settling and FOG crust</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>PP-<span class="s0r-tag">POS</span>-101 · progressive cavity pump · 80mm pipe · ±0.0 → +3.0m</div>
+            </div>
+          </div>
+
+          <!-- 2 PP-POS-101 -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Progressive Cavity Pump</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="10" y="30" width="50" height="20" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="2"/>
+                  <path d="M15 40 Q22 33 29 40 Q36 47 43 40 Q50 33 57 40" stroke="#555" stroke-width="1.5" fill="none"/>
+                  <rect x="56" y="34" width="20" height="12" fill="#d0d0d0" stroke="#666666" stroke-width="1" rx="2"/>
+                  <circle cx="66" cy="40" r="4" fill="#888" stroke="#555" stroke-width="1"/>
+                  <line x1="6" y1="40" x2="10" y2="40" stroke="#666666" stroke-width="2"/>
+                  <polygon points="6,36 2,40 6,44" fill="#666666"/>
+                  <text x="43" y="70" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">7.5kW · VFD</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">6 m³/h · 80mm</text>
+                </svg>
+              </div>
+              <div class="mis">High-solids capable</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">2</span><span class="mt">PP-<span class="s0r-tag">POS</span>-101</span></div>
+              <div class="mnr">Progressive Cavity Pump</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">Ground ±0.0m</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">7.5 kW</td></tr>
+                <tr><td class="fl-a">Flow rate</td><td class="fv-a">6 m³/h</td><td class="fdiv"></td><td class="fl-b">Drive</td><td class="fv-b">VFD controlled</td></tr>
+                <tr><td class="fl-a">Pipe size</td><td class="fv-a">80 mm</td><td class="fdiv"></td><td class="fl-b">Head</td><td class="fv-b">+3.0m static</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a"><span class="s0r">POS</span> raw sludge</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>80mm pipe · +3.0m rise → vibrating screen</div>
+            </div>
+          </div>
+
+          <!-- 3 PVS-01 Vibrating Screen (coarse) -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Vibrating Screen (coarse)</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="22" width="74" height="30" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="2" transform="rotate(-4,43,37)"/>
+                  <line x1="10" y1="28" x2="80" y2="23" stroke="#666666" stroke-width=".8" opacity=".6"/>
+                  <line x1="10" y1="35" x2="80" y2="30" stroke="#666666" stroke-width=".8" opacity=".6"/>
+                  <line x1="10" y1="42" x2="80" y2="37" stroke="#666666" stroke-width=".8" opacity=".6"/>
+                  <path d="M14 52 Q16 57 14 62 Q12 67 14 72" stroke="#888" stroke-width="1.5" fill="none"/>
+                  <path d="M72 50 Q74 55 72 60 Q70 65 72 70" stroke="#888" stroke-width="1.5" fill="none"/>
+                  <text x="43" y="12" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">≈≈ FLEX MOUNT ≈≈</text>
+                  <text x="43" y="94" font-family="DM Sans" font-size="9" fill="#555" text-anchor="middle">5.5kW · 5mm aperture</text>
+                </svg>
+              </div>
+              <div class="mis">Coarse debris removal</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">3</span><span class="mt">PVS-01</span></div>
+              <div class="mnr">Vibrating Screen (coarse)</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+3.0m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">5.5 kW</td></tr>
+                <tr><td class="fl-a">Capacity</td><td class="fv-a">6 t/h</td><td class="fdiv"></td><td class="fl-b">Aperture</td><td class="fv-b">5 mm</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a"><span class="s0r">POS</span> pumped sludge</td><td class="fdiv"></td><td class="fl-b">Moisture in</td><td class="fv-b">80–85%</td></tr>
+                <tr><td class="fl-a">Mounting</td><td class="fv-a">Flexible mount only</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Reject</td><td class="fv" colspan="4">Coarse fibre/debris > 5mm → skip bin · liquid pass → DAF</td></tr>
+                <tr class="fg-red"><td colspan="5">Flexible mount only — no rigid anchor permitted</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>Gravity chute → dissolved air flotation unit</div>
+            </div>
+          </div>
+
+          <!-- 4 PDF-01 DAF -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Dissolved Air Flotation</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="8" y="18" width="70" height="36" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="3"/>
+                  <circle cx="20" cy="42" r="2" fill="#aaa"/>
+                  <circle cx="30" cy="44" r="2" fill="#aaa"/>
+                  <circle cx="40" cy="40" r="2" fill="#aaa"/>
+                  <circle cx="50" cy="43" r="2" fill="#aaa"/>
+                  <circle cx="60" cy="41" r="2" fill="#aaa"/>
+                  <rect x="12" y="20" width="62" height="6" fill="#d0d0d0" opacity=".6"/>
+                  <text x="43" y="25" font-family="DM Sans" font-size="9" fill="#555" text-anchor="middle">FOG SKIM</text>
+                  <line x1="43" y1="54" x2="43" y2="64" stroke="#666" stroke-width="1.5"/>
+                  <polygon points="39,64 47,64 43,70" fill="#666"/>
+                  <text x="43" y="84" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">4kW · oil recovery</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">micro-bubble</text>
+                </svg>
+              </div>
+              <div class="mis">FOG removal + oil skim</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">4</span><span class="mt">PDF-01</span></div>
+              <div class="mnr">Dissolved Air Flotation (DAF)</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+1.5m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">4 kW</td></tr>
+                <tr><td class="fl-a">Capacity</td><td class="fv-a">6 m³/h</td><td class="fdiv"></td><td class="fl-b">HRT</td><td class="fv-b">30–45 min</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a"><span class="s0r">POS</span> screened sludge</td><td class="fdiv"></td><td class="fl-b">FOG recovery</td><td class="fv-b">→ oil recovery tank</td></tr>
+                <tr><td class="fl-a">Material</td><td class="fv-a">Stainless steel 304</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Note</td><td class="fv" colspan="4">Micro-bubble system — removes residual palm oil before dewatering</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>PP-02 pump → decanter centrifuge</div>
+            </div>
+          </div>
+
+          <!-- 5 PDC-01 Decanter Centrifuge CLASS A -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Decanter Centrifuge — CLASS A</div>
+              <div class="mib mib-classA">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="28" width="74" height="22" fill="#e0e0e0" stroke="#444444" stroke-width="1.5" rx="10"/>
+                  <ellipse cx="16" cy="39" rx="6" ry="10" fill="#d0d0d0" stroke="#444444" stroke-width="1"/>
+                  <ellipse cx="70" cy="39" rx="6" ry="10" fill="#d0d0d0" stroke="#444444" stroke-width="1"/>
+                  <line x1="22" y1="39" x2="64" y2="39" stroke="#444444" stroke-width="1.5"/>
+                  <line x1="40" y1="50" x2="40" y2="60" stroke="#555" stroke-width="1" stroke-dasharray="3,2"/>
+                  <line x1="50" y1="50" x2="55" y2="60" stroke="#555" stroke-width="1" stroke-dasharray="3,2"/>
+                  <rect x="4" y="10" width="34" height="12" fill="#444444" rx="2"/>
+                  <text x="21" y="19" font-family="DM Sans" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">CLASS A</text>
+                  <text x="43" y="78" font-family="DM Sans" font-size="9" fill="#444444" text-anchor="middle">MC ≥ 35% LOCKED</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">45kW · 3-phase</text>
+                </svg>
+              </div>
+              <div class="mis">Math.max(35, reading)</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">5</span><span class="mt">PDC-01</span></div>
+              <div class="mnr">Decanter Centrifuge</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+2.0m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">45 kW</td></tr>
+                <tr><td class="fl-a">Capacity</td><td class="fv-a">6 m³/h in</td><td class="fdiv"></td><td class="fl-b">Foundation</td><td class="fv-b">M30×8 · 800mm emb.</td></tr>
+                <tr><td class="fl-a">Moisture in</td><td class="fv-a">80–85%</td><td class="fdiv"></td><td class="fl-b">Moisture out</td><td class="fv-b">65–70% (cake)</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a"><span class="s0r">POS</span> post-DAF</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Centrate</td><td class="fv" colspan="4">→ POME pond only · never to substrate</td></tr>
+                <tr class="fg-red"><td colspan="5">CLASS A gate — MC floor ≥ 35% locked · Math.max(35, reading) · non-negotiable</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>CV-<span class="s0r-tag">POS</span>-201 · screw conveyor → paddle mixer</div>
+            </div>
+          </div>
+
+          <!-- 6 CV-POS-201 Screw Conveyor -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Screw Conveyor</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="32" width="74" height="16" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="2"/>
+                  <path d="M14 40 Q21 32 28 40 Q35 48 42 40 Q49 32 56 40 Q63 48 70 40" stroke="#555" stroke-width="1.5" fill="none"/>
+                  <rect x="72" y="34" width="10" height="12" fill="#d0d0d0" stroke="#666666" stroke-width="1"/>
+                  <text x="43" y="70" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">4kW · enclosed</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">4 t/h dewatered cake</text>
+                </svg>
+              </div>
+              <div class="mis">Enclosed · cake transfer</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">6</span><span class="mt">CV-<span class="s0r-tag">POS</span>-201</span></div>
+              <div class="mnr">Screw Conveyor</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+2.0m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">4 kW</td></tr>
+                <tr><td class="fl-a">Capacity</td><td class="fv-a">4 t/h</td><td class="fdiv"></td><td class="fl-b">Length</td><td class="fv-b">6 m</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a">Dewatered <span class="s0r">POS</span> cake</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>PB-06 belt · 8m level → paddle mixer</div>
+            </div>
+          </div>
+
+          <!-- 7 PMX-01 Paddle Mixer -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Paddle Mixer</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="8" y="22" width="70" height="30" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="2"/>
+                  <line x1="14" y1="37" x2="72" y2="37" stroke="#555" stroke-width="2"/>
+                  <rect x="20" y="30" width="3" height="14" fill="#888" rx="1"/>
+                  <rect x="32" y="30" width="3" height="14" fill="#888" rx="1"/>
+                  <rect x="44" y="30" width="3" height="14" fill="#888" rx="1"/>
+                  <rect x="56" y="30" width="3" height="14" fill="#888" rx="1"/>
+                  <rect x="68" y="30" width="3" height="14" fill="#888" rx="1"/>
+                  <line x1="43" y1="10" x2="43" y2="22" stroke="#666" stroke-width="1.5"/>
+                  <text x="43" y="8" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">LIME DOSING</text>
+                  <text x="43" y="70" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">11kW · pH correction</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">twin-shaft paddles</text>
+                </svg>
+              </div>
+              <div class="mis">Lime dosing · pH raise</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">7</span><span class="mt">PMX-01</span></div>
+              <div class="mnr">Paddle Mixer (lime dosing)</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+3.0m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">11 kW</td></tr>
+                <tr><td class="fl-a">Capacity</td><td class="fv-a">4 t/h</td><td class="fdiv"></td><td class="fl-b">Additive</td><td class="fv-b">Hydrated lime Ca(OH)₂</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a">Dewatered <span class="s0r">POS</span> cake</td><td class="fdiv"></td><td class="fl-b">Target pH</td><td class="fv-b">7.0–8.0 (raise from ~4.5)</td></tr>
+                <tr><td class="fl-a">Material</td><td class="fv-a">Carbon steel</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Note</td><td class="fv" colspan="4">POS is acidic (pH ~4.5) — lime dosing required before composting</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>PB-07 · 8m level belt → belt dryer</div>
+            </div>
+          </div>
+
+          <!-- 8 PDS-01 Belt Dryer -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Belt Dryer (low-temp)</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="18" width="74" height="40" fill="#e8e8e8" stroke="#666666" stroke-width="1.5" rx="2"/>
+                  <rect x="10" y="26" width="66" height="8" fill="#d0d0d0" stroke="#888" stroke-width=".8" rx="1"/>
+                  <rect x="10" y="40" width="66" height="8" fill="#d0d0d0" stroke="#888" stroke-width=".8" rx="1"/>
+                  <path d="M20 34 L26 34 L23 37 Z" fill="#888"/>
+                  <path d="M40 34 L46 34 L43 37 Z" fill="#888"/>
+                  <path d="M60 34 L66 34 L63 37 Z" fill="#888"/>
+                  <polygon points="43,4 38,16 48,16" fill="#555"/>
+                  <text x="43" y="70" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">18.5kW · waste heat</text>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#888" text-anchor="middle">65→40% MC target</text>
+                </svg>
+              </div>
+              <div class="mis">Waste heat · 65→40% MC</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">8</span><span class="mt">PDS-01</span></div>
+              <div class="mnr">Belt Dryer (low-temperature)</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+2.0m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">18.5 kW</td></tr>
+                <tr><td class="fl-a">Capacity</td><td class="fv-a">4 t/h</td><td class="fdiv"></td><td class="fl-b">Heat source</td><td class="fv-b">Waste heat / steam</td></tr>
+                <tr><td class="fl-a">Moisture in</td><td class="fv-a">65–70%</td><td class="fdiv"></td><td class="fl-b">Moisture out</td><td class="fv-b">35–40%</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a">Limed <span class="s0r">POS</span> cake</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Exhaust</td><td class="fv" colspan="4">→ PDC-02 baghouse · condensate → POME drain</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>PB-08 · 6m level belt → buffer bin</div>
+            </div>
+          </div>
+
+          <!-- 9 PDC-02 Baghouse -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Baghouse Filter</div>
+              <div class="mib">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="22" y="12" width="42" height="52" fill="#e0e0e0" stroke="#666" stroke-width="1.3" rx="2"/>
+                  <rect x="26" y="16" width="10" height="40" fill="#d0d0d0" stroke="#888" stroke-width=".8" rx="1"/>
+                  <rect x="38" y="16" width="10" height="40" fill="#d0d0d0" stroke="#888" stroke-width=".8" rx="1"/>
+                  <rect x="50" y="16" width="10" height="40" fill="#d0d0d0" stroke="#888" stroke-width=".8" rx="1"/>
+                  <line x1="43" y1="64" x2="43" y2="74" stroke="#666" stroke-width="2"/>
+                  <polygon points="43,4 38,14 48,14" fill="#555"/>
+                  <text x="43" y="96" font-family="DM Sans" font-size="9" fill="#555" text-anchor="middle">11kW · 2,500 m³/hr</text>
+                </svg>
+              </div>
+              <div class="mis">External east wall</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">9</span><span class="mt">PDC-02</span></div>
+              <div class="mnr">Baghouse Dust Filter</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">Outside east wall</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">11 kW</td></tr>
+                <tr><td class="fl-a">Airflow</td><td class="fv-a">2,500 m³/hr</td><td class="fdiv"></td><td class="fl-b">Efficiency</td><td class="fv-b">99% dust capture</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a">Belt dryer exhaust</td><td class="fdiv"></td><td class="fl-b">Material</td><td class="fv-b">Carbon steel housing</td></tr>
+                <tr><td class="fl-a">Connection</td><td class="fv-a">Exhaust duct from ⑧</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- 10 BIN-POS-301 Buffer Bin 24hr dwell -->
+          <div class="mcard">
+            <div class="mic">
+              <div class="mil">Buffer Bin — 24hr Dwell</div>
+              <div class="mib mib-dwell">
+                <svg width="108" height="108" viewBox="0 0 86 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="18" y="8" width="50" height="50" fill="#e8e8e8" stroke="#777777" stroke-width="1.5" rx="1"/>
+                  <polygon points="18,58 68,58 58,74 28,74" fill="#d0d0d0" stroke="#777777" stroke-width="1.5"/>
+                  <rect x="20" y="24" width="46" height="34" fill="rgba(245,166,35,.1)"/>
+                  <line x1="43" y1="8" x2="43" y2="56" stroke="#aaa" stroke-width="1.1"/>
+                  <line x1="30" y1="44" x2="56" y2="50" stroke="#aaa" stroke-width="1.1"/>
+                  <line x1="30" y1="50" x2="56" y2="44" stroke="#aaa" stroke-width="1.1"/>
+                  <line x1="18" y1="22" x2="8" y2="22" stroke="#777777" stroke-width="1.1"/>
+                  <circle cx="6" cy="22" r="3.5" fill="none" stroke="#777777" stroke-width="1.1"/>
+                  <text x="6" y="33" font-family="DM Sans" font-size="9" fill="#666666" text-anchor="middle">pH</text>
+                  <circle cx="62" cy="14" r="7" fill="none" stroke="#777777" stroke-width="1.1"/>
+                  <line x1="62" y1="8" x2="62" y2="14" stroke="#777777" stroke-width="1.1"/>
+                  <line x1="62" y1="14" x2="67" y2="16" stroke="#777777" stroke-width="1.1"/>
+                </svg>
+              </div>
+              <div class="mis">Gate C.G2/G3 — pH 7.0–8.0</div>
+            </div>
+            <div class="md">
+              <div class="mdh"><span class="mn">10</span><span class="mt">BIN-<span class="s0r-tag">POS</span>-301</span></div>
+              <div class="mnr">Buffer Bin — 24hr Dwell</div>
+              <table class="ft">
+                <tr><td class="fl-a">Location</td><td class="fv-a">+2.5m platform</td><td class="fdiv"></td><td class="fl-b">Power</td><td class="fv-b">2.2 kW</td></tr>
+                <tr><td class="fl-a">Volume</td><td class="fv-a">12 m³ <span class="fc">5–8 t at 30–40% MC</span></td><td class="fdiv"></td><td class="fl-b">Discharge</td><td class="fv-b">Live-bottom auger</td></tr>
+                <tr><td class="fl-a">Dwell time</td><td class="fv-a">≥ 24 hours</td><td class="fdiv"></td><td class="fl-b">pH target</td><td class="fv-b">7.0–8.0</td></tr>
+                <tr><td class="fl-a">Inputs</td><td class="fv-a">Dried <span class="s0r">POS</span> ≤ 40% MC</td><td class="fdiv"></td><td class="fl-b">MC in bin</td><td class="fv-b">30–40%</td></tr>
+                <tr><td class="fl-a">Shell material</td><td class="fv-a">Concrete or carbon steel</td><td class="fdiv"></td><td class="fl-b">Manufacturer</td><td class="fv-b">TBC after RFQ</td></tr>
+                <tr><td class="fl">Instruments</td><td class="fv" colspan="4">pH probe · monitor every 8hrs · do not blend until gate clears</td></tr>
+                <tr class="fg-amber"><td colspan="5">Gate C.G2/G3 — dwell ≥ 24hrs · pH 7.0–8.0 required before S2 transfer</td></tr>
+              </table>
+              <div class="mconn"><span class="mconn-arr">▾</span>BC-11 · 10m → conveyor gallery (20m × 4m covered) → S2 greenhouse intake</div>
+            </div>
+          </div>
+
+          <div class="s2box s2-pos">S2 discharge — <span class="s0r">POS</span> dried to S2 chemical treatment</div>
+        </div>
+      </div>
+      <div class="ho">
+        <div class="h-tick"></div>
+        <div class="h-line">
+          <div class="h-num">30.0 m</div>
+          <div class="h-title">Height</div>
+        </div>
+        <div class="h-tick"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
